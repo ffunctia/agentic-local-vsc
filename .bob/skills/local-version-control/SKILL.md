@@ -26,11 +26,36 @@ Never call the engine directly or modify any file inside `.bob_skills/`.
 
 ## Startup Checklist
 
-When this skill activates, always complete these steps before touching any code:
+When this skill activates, always complete these steps **in order** before touching any code:
 
-1. **Check current state** — run `--status` to see the snapshot history and any uncommitted changes.
-2. **Take a snapshot before major changes** — run `--new_version "descriptive message"` before any significant edit, refactor, or risky operation.
-3. **Use `--rollback` if a restore goes wrong** — never try to manually undo a `--load_version`.
+### Step 0 — Verify project name (mandatory first step)
+
+Run any LVC command. If it exits with `LVC Error: PROJECT_NAME is not set`, you **must** set it before proceeding:
+
+1. Derive the name from the project's root directory name — lowercase, no spaces, hyphens or underscores only.
+2. Write it with `execute_command`:
+   ```bash
+   sed -i 's/^PROJECT_NAME=.*/PROJECT_NAME=<derived-name>/' \
+       .bob_skills/local_version_control/project_name.conf
+   ```
+3. Verify it took effect:
+   ```bash
+   grep PROJECT_NAME .bob_skills/local_version_control/project_name.conf
+   ```
+
+Do **not** open or manually edit `project_name.conf` — use only the `sed` command above.
+
+### Step 1 — Check current state
+
+Run `--status` to see the snapshot history and any uncommitted changes.
+
+### Step 2 — Take a snapshot before major changes
+
+Run `--new_version "descriptive message"` before any significant edit, refactor, or risky operation.
+
+### Step 3 — Rollback safety net
+
+Use `--rollback` if a restore goes wrong — never try to manually undo a `--load_version`.
 
 ## Quick Command Reference
 

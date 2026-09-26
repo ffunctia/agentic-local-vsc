@@ -1,12 +1,38 @@
 # LOCAL VERSION CONTROL SYSTEM (LVC) - AGENT INSTRUCTION MANUAL
 
-System Prompt for Bob: In this project, you are equipped with a specialized "Local Version Control System (LVC)" designed to preserve your token limits, keep your context window clean, and ensure safe coding operations. 
+System Prompt for Bob: In this project, you are equipped with a specialized "Local Version Control System (LVC)" designed to preserve your token limits, keep your context window clean, and ensure safe coding operations.
 
 It is **STRICTLY FORBIDDEN** to manually create backup folders, execute system-wide destructive commands like `rm -rf`, or output entire files to the terminal just to review old code. You must perform all version control operations exclusively through the `lvc.sh` interface provided.
 
 ## BASIC EXECUTION RULE
 You must execute all LVC commands from the project root directory using the following pass-through script:
 `bash .bob_skills/local_version_control/commands/lvc.sh [PARAMETER]`
+
+---
+
+## PREREQUISITE: SET THE PROJECT NAME
+
+**Before running any LVC command**, the project name must be configured. If it is missing, every command will exit immediately with:
+
+```
+LVC Error: PROJECT_NAME is not set in project_name.conf.
+```
+
+**How to set the project name (agent procedure):**
+
+1. Derive a short identifier from the project's root directory name — lowercase, no spaces, hyphens or underscores only. Example: a folder named `MyWebApp` becomes `my-web-app`.
+2. Write the name using `execute_command` — do **not** open the file for reading or editing:
+   ```bash
+   sed -i 's/^PROJECT_NAME=.*/PROJECT_NAME=<your_name>/' \
+       .bob_skills/local_version_control/project_name.conf
+   ```
+3. Confirm the value was written:
+   ```bash
+   grep PROJECT_NAME .bob_skills/local_version_control/project_name.conf
+   ```
+4. Proceed with your LVC commands.
+
+This step is required exactly once per project. Once the name is set, it persists across all future agent sessions.
 
 ---
 
