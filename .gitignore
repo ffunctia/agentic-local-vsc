@@ -1,0 +1,12 @@
+# Snapshot storage (if someone runs the engine inside the project root by mistake)
+.local_versions/
+*.tmp
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
