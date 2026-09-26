@@ -60,6 +60,22 @@ This step is required exactly once per project. Once the name is set, it persist
 * **`--delete_version [vX]`**: Deletes a single version that is faulty or obsolete.
 * **`--clean`**: Automatically purges the oldest versions when the maximum storage limit defined in the system defaults is reached.
 
+### 6. Help
+* **`--help`**: Prints the full command reference including all options and configuration variables. Use this when unsure about a command's arguments.
+
+### 7. Per-project Exclusions (.lvcignore)
+You can exclude additional files and directories from snapshots on a per-project basis by creating a `.lvcignore` file in the project root. Its syntax is identical to `.gitignore`. Lines starting with `#` are comments.
+
+Example `.lvcignore`:
+```
+# Exclude generated logs and temp files
+logs/
+*.log
+tmp/
+```
+
+This supplements (does not replace) the global `IGNORE_DIRS` setting in `system_defaults.conf`. `.bob_skills/`, `.git/`, and `.local_version_control/` are always excluded regardless of any configuration.
+
 ---
 
 ## STRICT BEST PRACTICES FOR BOB
